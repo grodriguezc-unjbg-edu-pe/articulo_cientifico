@@ -1,25 +1,25 @@
 #include <iostream>
 using namespace std;
 
-// Funcion Quick Sort
-void quickSort(int arreglo[], int inicio, int fin) {
+void quickSort(int a[], int inicio, int fin) {
     int i = inicio;
     int j = fin;
-    int pivote = arreglo[(inicio + fin) / 2];
+    int pivote = a[(inicio + fin) / 2];
+    int auxiliar;
 
     while (i <= j) {
-        while (arreglo[i] < pivote) {
+        while (a[i] < pivote) {
             i++;
         }
 
-        while (arreglo[j] > pivote) {
+        while (a[j] > pivote) {
             j--;
         }
 
         if (i <= j) {
-            int temporal = arreglo[i];
-            arreglo[i] = arreglo[j];
-            arreglo[j] = temporal;
+            auxiliar = a[i];
+            a[i] = a[j];
+            a[j] = auxiliar;
 
             i++;
             j--;
@@ -27,30 +27,49 @@ void quickSort(int arreglo[], int inicio, int fin) {
     }
 
     if (inicio < j) {
-        quickSort(arreglo, inicio, j);
+        quickSort(a, inicio, j);
     }
 
     if (i < fin) {
-        quickSort(arreglo, i, fin);
+        quickSort(a, i, fin);
     }
 }
+
 int main() {
-    int arreglo[] = {3, 5, 2, 8, 6, 1, 4, 10, 7, 11};
-    int n = 10;
+    int n;
 
-    cout << "Serie original: ";
+    cout << "Ingrese la cantidad de elementos: ";
+    cin >> n;
 
-    for (int i = 0; i < n; i++) {
-        cout << arreglo[i] << " ";
+    if (n <= 0) {
+        cout << "La cantidad debe ser mayor que cero." << endl;
+        return 1;
     }
 
-    // Aplicar Quick Sort
-    quickSort(arreglo, 0, n - 1);
+    int* a = new int[n];
 
-    cout << "\nSerie ordenada: ";
+    cout << "Ingrese los elementos del array:" << endl;
 
     for (int i = 0; i < n; i++) {
-        cout << arreglo[i] << " ";
+        cout << "Elemento [" << i << "]: ";
+        cin >> a[i];
     }
 
-    return 0;}
+    cout << "\nArray original: ";
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
+    }
+
+    quickSort(a, 0, n - 1);
+
+    cout << "\nArray ordenado con Quick Sort: ";
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
+    }
+
+    cout << endl;
+
+    delete[] a;
+
+    return 0;
+}
